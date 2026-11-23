@@ -91,3 +91,9 @@ main branch. After it has a real address:
 1. Change `og:image` in `index.html` to the full address of `img/share.png` (some apps need a full address for previews).
 2. Open it in Safari on an iPhone to check the App Store banner shows.
 3. Change `ShareText.appLink` in the iPhone app to the web address, so shared results open the puzzle directly.
+
+## Support and privacy pages
+
+This repo is also the Make Ten app's support site. `support.html` and
+`privacy.html` (styled by `docs.css`) are the app's Support and Privacy Policy
+pages. Do not delete or rename them: the App Store listing points here.

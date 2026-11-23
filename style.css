@@ -132,6 +132,7 @@ h3 { font-size: 1rem; margin: 16px 0 6px; color: var(--muted); }
 
 footer { max-width: 640px; margin: 0 auto; padding: 8px 16px 32px; color: var(--muted); font-size: 0.85rem; }
 footer p { margin: 4px 0; }
+footer a { color: inherit; }
 .noscript { text-align: center; padding: 16px; }
 
 /* Clear keyboard focus for people who don't use a mouse. */
