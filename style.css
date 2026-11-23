@@ -1,21 +1,147 @@
-:root{--bg:#EAF1FF;--surface:#fff;--ink:#0E1F4D;--muted:#4F5F8F;--line:#CBD8F5;--accent:#2F6BFF}
-@media (prefers-color-scheme:dark){:root{--bg:#0B1430;--surface:#14214A;--ink:#F0F4FF;--muted:#9FB0E0;--line:#2A3A70;--accent:#7FA2FF}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;font-size:17px}
-.wrap{max-width:720px;margin:0 auto;padding:48px 22px 64px}
-header{display:flex;align-items:center;gap:16px;margin-bottom:28px}
-header svg{width:64px;height:64px;flex:none}
-h1{font-weight:800;font-size:clamp(34px,8vw,48px);line-height:1;margin:0;letter-spacing:-0.02em}
-h1 span{color:var(--accent)}
-h2{font-weight:800;font-size:22px;margin:36px 0 12px}
-h3{font-size:17px;margin:0 0 4px}
-p{margin:0 0 12px}
-.lede{font-size:19px;font-weight:600;color:var(--muted)}
-.card{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:18px 20px;margin-bottom:12px}
-.contact{background:var(--surface);border:3px solid var(--ink);border-radius:22px;padding:22px;box-shadow:6px 6px 0 var(--accent);margin:24px 0}
-.contact a{font-weight:800;font-size:20px;color:var(--accent);word-break:break-all}
-a{color:var(--accent)}
-nav{display:flex;gap:18px;font-weight:700;margin-bottom:8px}
-footer{margin-top:48px;color:var(--muted);font-size:14px}
-ul{padding-left:22px;margin:0 0 12px}
-li{margin-bottom:6px}
+/* Colors live in variables so light and dark mode only swap the values. */
+:root {
+  --bg: #F4F6FC;
+  --card: #FFFFFF;
+  --ink: #0B1530;
+  --muted: #4A5578;
+  --accent: #1E3A8A;
+  --accent-ink: #FFFFFF;
+  --tile: #1E3A8A;
+  --tile-ink: #FFFFFF;
+  --yellow: #FACC15;
+  --good: #116B3A;
+  --bad: #9F1D1D;
+  --line: #D5DBEC;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0B1530;
+    --card: #14224A;
+    --ink: #F1F5FF;
+    --muted: #A9B8E2;
+    --accent: #FACC15;
+    --accent-ink: #0B1530;
+    --tile: #F1F5FF;
+    --tile-ink: #0B1530;
+    --good: #6EE7A8;
+    --bad: #FCA5A5;
+    --line: #2A3A6B;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.45;
+}
+main { max-width: 640px; margin: 0 auto; padding: 20px 16px 8px; }
+
+header { display: flex; align-items: center; gap: 14px; }
+.logo { border-radius: 14px; }
+h1 { margin: 0; font-size: 1.7rem; }
+.sub { margin: 0; color: var(--muted); }
+h2 { font-size: 1.2rem; margin: 0 0 8px; }
+h3 { font-size: 1rem; margin: 16px 0 6px; color: var(--muted); }
+.rules { margin: 16px 0; }
+
+/* The four digits: big enough to read from the back of a classroom. */
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 8px 0 16px; }
+.tile {
+  aspect-ratio: 1 / 1;
+  font-size: clamp(2.4rem, 12vw, 4.2rem);
+  font-weight: 800;
+  border: none;
+  border-radius: 18px;
+  background: var(--tile);
+  color: var(--tile-ink);
+  cursor: pointer;
+  box-shadow: 0 6px 0 var(--yellow);
+}
+.tile:disabled { opacity: 0.3; box-shadow: none; cursor: default; }
+
+.display {
+  min-height: 64px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 16px;
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.expr { overflow-wrap: anywhere; }
+.running { color: var(--muted); white-space: nowrap; }
+
+.pad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 14px 0; }
+.key {
+  min-height: 56px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  border-radius: 12px;
+  border: 2px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+}
+.key.small { font-size: 1.1rem; }
+.check, .get-app {
+  display: block; width: 100%;
+  min-height: 56px;
+  border: none; border-radius: 14px;
+  background: var(--accent); color: var(--accent-ink);
+  font-size: 1.25rem; font-weight: 800;
+  cursor: pointer;
+  text-align: center; text-decoration: none;
+  padding: 15px 12px;
+}
+.hint-keys { color: var(--muted); font-size: 0.85rem; margin: 8px 0 0; }
+@media (hover: none) { .hint-keys { display: none; } } /* phones have no keyboard shortcuts */
+
+.feedback { min-height: 1.5em; font-weight: 700; margin: 14px 0; }
+.feedback.good { color: var(--good); }
+.feedback.bad { color: var(--bad); }
+
+.progress { background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.answers { margin: 0; padding-left: 1.6em; font-size: 1.15rem; }
+.answers li { padding: 2px 0; }
+.missed { color: var(--muted); }
+
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+.secondary {
+  min-height: 48px;
+  border-radius: 12px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--ink);
+  font-size: 1rem; font-weight: 700;
+  cursor: pointer;
+  padding: 8px 10px;
+}
+.confirm, .copy-box { background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px; margin-bottom: 14px; }
+.confirm p { margin: 0 0 10px; }
+.confirm .secondary { margin: 0 8px 4px 0; }
+.copy-box textarea { width: 100%; font: inherit; font-size: 1rem; margin-top: 6px; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+
+.app-promo { margin: 24px 0 8px; padding: 18px 16px; border-radius: 16px; background: var(--card); border: 2px solid var(--line); }
+.app-promo p { margin: 0 0 14px; }
+
+footer { max-width: 640px; margin: 0 auto; padding: 8px 16px 32px; color: var(--muted); font-size: 0.85rem; }
+footer p { margin: 4px 0; }
+.noscript { text-align: center; padding: 16px; }
+
+/* Clear keyboard focus for people who don't use a mouse. */
+button:focus-visible, a:focus-visible, textarea:focus-visible { outline: 4px solid var(--yellow); outline-offset: 3px; }
+
+/* A short "pop" when an answer is found, unless the visitor asked for less motion. */
+@keyframes pop { 50% { transform: scale(1.04); } }
+.feedback.good { animation: pop 0.3s ease-out; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* Big screens and projectors: a little larger. */
+@media (min-width: 900px) { body { font-size: 20px; } }
+.nowrap { white-space: nowrap; } /* keeps "( )" together on one line */

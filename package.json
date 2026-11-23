@@ -1,0 +1,9 @@
+{
+  "name": "maketen-web",
+  "private": true,
+  "description": "Free web version of the Make Ten daily puzzle. No dependencies.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/"
+  }
+}
